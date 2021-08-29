@@ -84,7 +84,7 @@ app.put("/notes/:noteId", (req, res) => {
 });
 
 // Delete Note
-app.delete()
+
 
 // Not Found
 app.get("*", (req, res) => {
