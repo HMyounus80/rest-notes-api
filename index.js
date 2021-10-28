@@ -8,7 +8,9 @@ const { connectDB } = require("./db/dbConnection");
 
 // Routes
 const notesRoute = require("./routes/notes");
+const usersRoute = require("./routes/users");
 const indexRoute = require("./routes");
+
 
 // Middleware
 app.use(express.json());
@@ -18,6 +20,7 @@ connectDB();
 
 //Handling Route
 app.use("/notes", notesRoute);
+app.use("/users", usersRoute);
 app.use("/", indexRoute);
 
 //server creation
