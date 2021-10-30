@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const { check } = require("express-validator");
+const cookieParser = require("cookie-parser");
 const app = express();
 
 //DB
@@ -12,8 +13,11 @@ const usersRoute = require("./routes/users");
 const indexRoute = require("./routes");
 
 
+
 // Middleware
 app.use(express.json());
+app.use(cookieParser ('SecretKey'));
+// app.use(auth):
 
 // Connecting DB
 connectDB();

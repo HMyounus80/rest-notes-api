@@ -1,4 +1,5 @@
 const { validationResult } = require("express-validator");
+
 //models
 const Note = require("../models/notes");
 
@@ -17,6 +18,7 @@ module.exports.addNoteController = async (req, res) => {
 };
 
 module.exports.getNoteController = async (req, res) => {
+  console.log(req.body.random);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(404).send(errors.array());
@@ -32,6 +34,7 @@ module.exports.getNoteController = async (req, res) => {
 };
 
 module.exports.getNotesController = async (req, res) => {
+  // console.log(req.user);
   try {
     const notes = await Note.find();
     res.send(notes);

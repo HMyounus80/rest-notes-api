@@ -7,6 +7,7 @@ const {
   addUserController,
   getUsersController,
   getUserController,
+  loginController
 } = require("../controllers/userController");
 
 router.get("/", getUsersController);
@@ -33,6 +34,9 @@ router.post(
   ],
   addUserController
 );
+
+router.post('/login',loginController)
+
 
 router.get(
   "/:id",

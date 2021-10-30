@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { check } = require("express-validator");
+//middleware
+const {auth} = require("../middleware/auth");
 
 //controller
 const {
@@ -11,7 +13,7 @@ const {
   deleteNoteController,
 } = require("../controllers/noteController");
 // Get Notes
-router.get("/", getNotesController);
+router.get("/", auth, getNotesController);
 
 // Get Single Note
 router.get(
