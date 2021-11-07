@@ -2,12 +2,16 @@ const express = require("express");
 const router = express.Router();
 const { check } = require("express-validator");
 
+// auth middleware
+const { auth } = require("../middleware/auth");
+
 //controller
 const {
   addUserController,
   getUsersController,
   getUserController,
-  loginController
+  loginController,
+  logOutController
 } = require("../controllers/userController");
 
 router.get("/", getUsersController);
@@ -35,12 +39,13 @@ router.post(
   addUserController
 );
 
-router.post('/login',loginController)
+// Login User
+router.post("/login", loginController);
+
+// Logout User 
+router.post('/logout', auth, logOutController)
 
 
-router.get(
-  "/:id",
-  [check("id", "user not found").isMongoId()],
-  getUserController
-);
+// Getting single User
+router.get("/me", auth, getUserController);
 module.exports = router;

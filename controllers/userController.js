@@ -31,12 +31,13 @@ module.exports.getUsersController = async (req, res) => {
 
 // getUserController 
 module.exports.getUserController = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).send(errors.array());
-  }
-  const id = req.params.id;
+
+  const id = req.user._id;
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).send(errors.array());
+    }
     const user = await User.findById(id, "-password");
     if (!user) return res.status(404).send("user not exist");
     res.send(user);
@@ -70,9 +71,14 @@ module.exports.loginController = async(req, res) => {
       signed: true,
       maxAge: 4 * 60 * 60 * 1000
     })
-  res.send('success')
+  res.send('Successfully Logged in')
   } catch (error) {
     res.status(500).send(error)
   }
  
 } 
+
+module.exports.logOutController = (req, res) =>{
+  res.clearCookie('auth');
+  res.send('Successfully Logged Out')
+}

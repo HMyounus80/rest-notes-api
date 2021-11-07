@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { check } = require("express-validator");
 //middleware
-const {auth} = require("../middleware/auth");
+const { auth } = require("../middleware/auth");
 
 //controller
 const {
@@ -12,8 +12,9 @@ const {
   updateNoteController,
   deleteNoteController,
 } = require("../controllers/noteController");
+
 // Get Notes
-router.get("/", auth, getNotesController);
+router.get("/", getNotesController);
 
 // Get Single Note
 router.get(
@@ -26,6 +27,7 @@ router.get(
 router.post(
   "/",
   [
+    auth,
     check("title", "Title is Required").notEmpty(),
     check("description", "Description is Required").notEmpty(),
   ],
@@ -36,6 +38,7 @@ router.post(
 router.put(
   "/:noteId",
   [
+    auth,
     check("noteId", "Note Not Found").isMongoId(),
     check("title", "Title is Required").optional().notEmpty(),
     check("description", "Description is Required").optional().notEmpty(),
@@ -46,7 +49,7 @@ router.put(
 // Delete Note
 router.delete(
   "/:noteId",
-  check("noteId", "Note Not Found").isMongoId(),
+  [auth, check("noteId", "Note Not Found").isMongoId()],
   deleteNoteController
 );
 

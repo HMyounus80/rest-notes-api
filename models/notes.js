@@ -13,6 +13,11 @@ const notesSchema = new mongoose.Schema(
       minlength: 10,
       maxlength: 100,
     },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    }
   },
   {
     timestamps: true,
